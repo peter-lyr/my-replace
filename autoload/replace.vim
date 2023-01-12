@@ -38,13 +38,13 @@ fu! s:pasteCmdlineWindowAll()
   let pwd = substitute(getcwd(), '\', '/', 'g')
   let pwd = substitute(pwd, ' ', '\\ ', 'g')
   if exists("g:terminal_ok") && g:terminal_ok == 1
-    let tmp = "call bash#runHide('find "
+    let tmp = "call bash#runHide('fd * "
     let tmp .= '"%s"'
   else
-    let tmp = "call replace#do('AsyncRun bash -c \"find "
+    let tmp = "call replace#do('AsyncRun bash -c \"fd * "
     let tmp .= '\"%s\"'
   endif
-  let tmp .= " -type f ! -path *.git* -exec sed -i '"
+  let tmp .= " -X sed -i '"
   let tmp .= ' ."'
   let tmp .= "'"
   let tmp .= '"'
@@ -58,11 +58,7 @@ fu! s:pasteCmdlineWindowAll()
   let tmp .= "/g'"
   let tmp .= ' ."'
   let tmp .= "'"
-  if exists("g:terminal_ok") && g:terminal_ok == 1
-    let tmp .= '" ." {} +")'
-  else
-    let tmp .= '" ." {} +" ."\"")'
-  endif
+  let tmp .= '")'
   call setline('.', [
         \ printf(tmp, pwd, '',   '\<', s:cword, '\>', s:cword),
         \ printf(tmp, pwd, '    ', '', s:cword,   '', s:cword),
