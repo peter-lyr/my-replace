@@ -56,8 +56,7 @@ fu! s:pasteCmdlineWindowAll()
   let tmp .= "/g'"
   let tmp .= ' ."'
   let tmp .= "'"
-  let tmp .= '"'
-  let tmp .= ' ."\"")'
+  let tmp .= '")'
   call setline('.', [
         \ printf(tmp, pwd, '',   '\<', s:cword, '\>', s:cword),
         \ printf(tmp, pwd, '    ', '', s:cword,   '', s:cword),
